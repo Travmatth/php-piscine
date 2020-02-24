@@ -1,0 +1,81 @@
+<- Vector ----------------------------------------------------------------------
+The Vector Struct handles vertices
+
+A Vector Struct can be instantiated by calling NewVector with an option starting
+vertex and a mandatory ending Vertex. If no starting vertex is specified, a
+default starting from (0,0,0,1) is created. Vector values (x,y,z) are initialized
+with the difference of the ending and starting vertices.
+
+v := Vector.NewVector(nil, []float64{x,y,z})
+
+Verbosity can be managed by setting the boolean Vertex.Verbosity.
+
+The struct provides the following methods :
+
+func (v *Vector) Release():
+    print message when vector is going out of scope, when called with defer 
+
+func  Doc() (doc string, err error):
+    return this documentation as string
+
+func (v *Vector) String() (repr string):
+    return string representation of the vector in form:
+        Vector( x: x, y: y, z: z, w: w )
+
+func (v *Vector) GetX() float64: 
+    return x coordinate of the vector
+
+func (v *Vector) GetY() float64: 
+    return y coordinate of the vector
+
+func (v *Vector) GetZ() float64: 
+    return z coordinate of the vector
+
+func (v *Vector) GetW() float64: 
+    return w coordinate of the vector
+
+func (v *Vector) GetColor() *Color.Color:
+	return Color struct of the vector
+
+func (v *Vector) SetX(x float64):
+    set x coordinate of the vector
+
+func (v *Vector) SetY(y float64):
+    set y coordinate of the vector
+
+func (v *Vector) SetZ(z float64):
+    set z coordinate of the vector
+
+func (v *Vector) SetW(w float64):
+    set w coordinate of the vector
+
+func (v *Vector) SetColor(color *Color.Color):
+    set Color struct of the vector
+
+func (v *Vector) Magnitude() float64:
+    compute the magnitude of the vector
+
+func (v *Vector) Normalize() *Vector:
+    return the normalized vector
+
+func (v *Vector) Add(rhs *Vector) *Vector:
+    add vector rhs to the current vector, return a new vector
+
+func (v *Vector) Sub(rhs *Vector) *Vector:
+    subtract vector rhs from the current vector, return a new vector
+
+func (v *Vector) Opposite() *Vector:
+    return new Vector containing the opposite coordinate of the current vector
+
+func (v *Vector) ScalarProduct(k float64) *Vector:
+    return new Vector containing the current vector scaled by scalar value k
+
+func (v *Vector) DotProduct(rhs *Vector) float64:
+    return the dot product of the current vector and vector rhs
+
+func (v *Vector) Cos(rhs *Vector) float64:
+    return Cosine of the current vector and vector rhs
+
+func (v *Vector) CrossProduct(rhs *Vector) *Vector:
+    return new Vector containing the cross product of the current vector and vector rhs
+---------------------------------------------------------------------- Vector ->

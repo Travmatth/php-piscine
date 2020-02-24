@@ -1,0 +1,25 @@
+<- Color ----------------------------------------------------------------------
+The Color class handles RGB colors.
+
+An instance can be contructed from either a RGB value:
+Color.NewColor([]int{12345})
+
+Or from distinct red, green, blue constitutives:
+Color.NewColor([]int{255, 255, 255})
+
+Red, green, blue constitutives and RGB values are converted to intergers.
+Negative or > to 255 color constitutives are left as is.
+Any other use is undefined behaviour.
+
+The class provides the following methods :
+
+Color.Add(rhs *Color.Color);
+Adds each color constitutive and returns a new Color instance.
+
+Color.Sub(rhs *Color.Color);
+Substracts each color constitutive and returns a new Color instance.
+
+Color.Mult(k float64);
+Multiplies each color constitutive by factor k and returns a new Color
+instance.
+---------------------------------------------------------------------- Color ->

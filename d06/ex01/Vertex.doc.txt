@@ -1,0 +1,56 @@
+<- Vertex ----------------------------------------------------------------------
+The Vertex Struct handles vertices and their associated color
+
+An instance can be created from an (x,y,z) list of float64 coordinates:
+v := Vertex.NewVertex([]float64{x,y,z}, nil)
+By default the w value of the vertex is initialized to 1.0, different value may
+    be specified by appending desired value to the end of the coordinate tuple.
+By default the color of the vertex is initialized to white (255,255,255), a
+    different color may be specified passing a color struct as the second
+    argument to the Vertex.NewVertex function:
+v := Vertex.NewVertex([]float64{x,y,z,w}, Color.NewColor([]int{255, 255, 255}))
+
+Verbosity can be managed by setting the boolean Vertex.Verbosity.
+
+The struct provides the following methods :
+
+func (v *Vertex) Release():
+    print message when vertex is going out of scope, when called with defer 
+
+func (v *Vertex) GetX() float64: 
+    return x coordinate of the vertex
+
+func (v *Vertex) GetY() float64: 
+    return y coordinate of the vertex
+
+func (v *Vertex) GetZ() float64: 
+    return z coordinate of the vertex
+
+func (v *Vertex) GetW() float64: 
+    return w coordinate of the vertex
+
+func (v *Vertex) GetColor() *Color.Color:
+	return Color struct of the vertex
+
+func (v *Vertex) SetX(x float64):
+    set x coordinate of the vertex
+
+func (v *Vertex) SetY(y float64):
+    set y coordinate of the vertex
+
+func (v *Vertex) SetZ(z float64):
+    set z coordinate of the vertex
+
+func (v *Vertex) SetW(w float64):
+    set w coordinate of the vertex
+
+func (v *Vertex) SetColor(color *Color.Color):
+    set Color struct of the vertex
+
+func  Doc() (doc string, err error):
+    return this documentation as string
+
+func (v *Vertex) String() (repr string):
+    return string representation of the vertex in form:
+        Vertex( x: x, y: y, z: z, w: w <, Color: Color"
+---------------------------------------------------------------------- Vertex ->

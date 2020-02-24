@@ -1,0 +1,48 @@
+<- Matrix ----------------------------------------------------------------------
+The Matrix Struct handles matrices and methods allowing for their manipulation.
+A matrix is instantiated by calling Matrix.NewMatrix with a preset and its
+associated values, with other parameters set to nil values. The following
+presets are supported:
+	IDENTITY: returns the identity matrix, no other parameters needed
+	SCALE: scales the matrix using the scale parameter
+	RX: Rotate the matrix along the x-axis using angle parameter
+	RY: Rotate the matrix along the y-axis using angle parameter
+	RZ: Rotate the matrix along the z-axis using angle parameter
+	TRANSLATION: Translate the matrix by the vector parameter
+	PROJECTION: Project matrix using the fov, near, far, ratio parameters
+
+m := Matrix.NewMatrix(preset string
+                    , scale float64
+                    , angle float64
+                    , vtc *Vector.Vector
+                    , fov float64
+                    , ratio float64
+                    , near float64
+                    , far float64) (m *Matrix)
+
+Verbosity can be managed by setting the boolean Matrix.Verbosity.
+
+The struct provides the following methods:
+
+func (m *Matrix) Release():
+    print message when matrix is going out of scope, when called with defer 
+
+func  Doc() (doc string, err error):
+    return this documentation as string
+
+func (m *Matrix) String() (repr string):
+    return string representation of the matrix in form:
+	M | vtcX | vtcY | vtcZ | vtxO
+	-----------------------------
+	x | ____ | ____ | ____ | ____
+	y | ____ | ____ | ____ | ____
+	z | ____ | ____ | ____ | ____
+	w | ____ | ____ | ____ | ____
+
+func (m *Matrix) Mult(rhs *Matrix) *Matrix:
+    multiply matrix m by matrix rhs and return in new matrix
+
+func (m *Matrix) TransformVertex(v *Vertex.Vertex) *Vertex.Vertex:
+    transform vertex by matrix and return in new vertex
+
+---------------------------------------------------------------------- Matrix ->
