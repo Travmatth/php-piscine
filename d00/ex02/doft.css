@@ -1,0 +1,158 @@
+body {
+    background-color: #505050;
+    margin: 18px 0 0 8px;
+}
+
+main {
+    width: 1420px;
+    margin: 0 auto;
+}
+
+header {
+    height: 137px;
+    width: 1420px;
+    position: relative;
+}
+
+header, section, article, aside {
+    background-color: #909090;
+    box-shadow: 10px 10px 5px black;
+    border-radius: 10px;
+}
+
+.brand {
+    height: 110px;
+    margin: 10px 0 0 10px;
+}
+
+.search {
+    top: 10px;
+    right: 30px;
+    position: absolute;
+}
+
+header a img {
+    height: 20px;
+    width: 20px;
+    right: 10px;
+    position: absolute;
+}
+
+header a:nth-of-type(1) img {
+    top: 10px;
+}
+
+header a:nth-of-type(2) img {
+    bottom: 10px;
+}
+
+section:nth-of-type(1) {
+    height: 410px;
+    width: 108px;
+    margin: 20px 0 0 30px;
+    float: left;
+    padding: 15px 0 0 32px;
+}
+
+section:nth-of-type(1) img {
+    width: 70px;
+    margin-bottom: 6px;
+}
+
+section:nth-of-type(2) img {
+    width: 70px;
+    margin-bottom: 6px;
+}
+
+section:nth-of-type(1) img:nth-of-type(3) {
+    margin: -5px 0 1px -5px;
+    border: 5px solid red;
+    border-radius: 5px;
+}
+
+section:nth-of-type(2) {
+    height: 410px;
+    width: 105px;
+    margin: 20px 0 0 30px;
+    padding: 15px 0 0 35px;
+    float: left;
+}
+
+section:nth-of-type(2) div {
+    height: 70px;
+    width: 120px;
+    margin: -5px 0 0 -25px;
+    background-image: url("resources/brick.jpg");
+}
+
+section:nth-of-type(2) img { 
+    width: 70px;
+    margin-bottom: 6px;
+}
+
+article { 
+    height: 582px;
+    width: 1020px;
+    margin: 20px 0 0 30px;
+    float: left;
+    position: relative;
+}
+
+article img {
+    height: 562px;
+    width: 1000px;
+    margin: 10px;
+}
+
+aside {
+    height: 150px;
+    width: 500px;
+    left: -245px;
+    bottom: -94px;
+    position: absolute;
+    background-color: #88FF89;
+    padding: 10px;
+    font-family: arial;
+    font-size: 16px;
+    font-stretch: expanded !important;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+span:nth-of-type(1) {
+    font-family: Times;
+    font-size: 31px;
+}
+
+span:nth-of-type(2) {
+    text-shadow: 5px 5px 5px #ff0000;
+}
+
+span:nth-of-type(3) {
+    font-style: italic;
+}
+
+form {
+    height: 22px;
+}
+
+form input[type="text"] {
+    height: 15px;
+    width: 376px;
+    margin-left: 2px;
+    border: 2px solid #9d969d;
+    border-bottom-color: #eeeeee;
+    border-right-color: #eeeeee;
+}
+
+form input[type="submit"] {
+    height: 22px;
+    border: 1px solid #a8a4a5;
+    border-radius: 1px;
+    margin-left: 4px;
+    font-size:12px;
+    letter-spacing: 1px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f4eff3), to(#dcdcdc));
+    background-color: #f4eff3;
+    background: #0079FF;
+}

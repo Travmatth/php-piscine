@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Balloon</title>
+        <style type="text/css">
+            body {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                align-content: center;
+                justify-content: center;
+                background-color: lightgrey;
+            }
+            div {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                border: 0px;
+                border-radius: 50%;
+            }
+        </style>
+        <script>
+            i = 0
+            colors = ["red", "green", "blue"]
+            nextBalloon = (balloon, diameter, color) => {
+                balloon.style.height = diameter + 'px'
+                balloon.style.width = diameter + 'px'
+                balloon.style.backgroundColor = color
+            }
+            onClick = (balloon) => () => {
+                diameter = balloon.offsetHeight
+                diameter += 10
+                if (diameter > 420) {
+                    diameter = 200
+                }
+                i = (i + 1) % 3
+                nextBalloon(balloon, diameter, colors[i])
+            }
+            onLeave = (balloon) => () => {
+                diameter = balloon.offsetHeight
+                diameter -= 5
+                if (diameter < 200) {
+                    diameter = 200
+                }
+                if (i === 0) i = 2
+                else i -= 1
+                nextBalloon(balloon, diameter, colors[i])
+            } 
+            if (typeof document !== 'undefined') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    balloon = document.querySelector("div")
+                    balloon.addEventListener("click", onClick(balloon))
+                    balloon.addEventListener("mouseleave", onLeave(balloon))
+                })
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+        </div>
+    </body>
+</html>
