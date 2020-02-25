@@ -5,6 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     align-content: center;
+    background-color: bisque;
 }
 
 main {
@@ -20,6 +21,9 @@ section {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    align-content: center;
+    align-content: space-between;
     margin: 1%;
+    background-color: aqua;
+    text-align: center;
+    border: 1px solid black;
 }
