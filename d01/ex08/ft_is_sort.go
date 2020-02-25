@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"sort"
 )
 
 /*
@@ -11,17 +11,14 @@ according to whether the array passed as argument is sorted or not.
 */
 
 func ft_is_sort(array []string) bool {
-	n := len(array)
-	for i := 0; i < n-1; i++ {
-		if strings.Compare(array[i], array[i+1]) == 1 {
-			return false
-		}
-	}
-	return true
+	return sort.SliceIsSorted(array, func (i, j int) bool {
+		return array[i] < array[j]
+	})
 }
 
 func main() {
-	array := {"!/@#;^", "42", "Hello World", "hi", "zZzZzZz"}
+	// array := []string{"!/@#;^", "42", "Hello World", "hi", "zZzZzZz"}
+	array := []string{"What", "are", "we", "doing", "now"}
 	if ft_is_sort(array) == false {
 		fmt.Println("The array is not sorted")
 	} else {

@@ -3,44 +3,33 @@ package main
 import (
 	"fmt"
 	"os"
-	"unicode"
+	"errors"
+	"regexp"
+	"strconv"
 )
 
-/*
-This time, only 1 argument is on the menu. That one contains the whole calculation
-that needs to be done. This calculation will always be under the following format number
-operator number. A new error message “Syntax Error” will now complete the prior
-message in case the syntax isn’t correct. There can be no space between the numbers
-and the operator, or there can be many. The expected results is the same.
-*/
+var r = regexp.MustCompile("^\\s*([0-9]*)\\s*([%*+-/])\\s*([0-9]*)\\s*$")
 
-func splitString(arg string) (lhs int, op string, rhs int) {
-	first := true
-	lhs, op, rhs = 0, "", 0
-	for _, c := range arg {
-		switch {
-		case unicode.IsSpace(c):
-			continue
-		case first && unicode.IsNumber(c):
-			next := int(c)
-			lhs = (lhs * 10) + next
-		case !first && unicode.IsNumber(c):
-			next := int(c)
-			rhs = (rhs * 10) + next
-		default:
-			first = false
-			op = string(c)
-		}
+func splitString(arg string) (lhs int, op string, rhs int, err error) {
+	matches := r.FindAllStringSubmatchIndex(arg, -1)
+	if len(matches) == 0 {
+		return 0, "", 0, errors.New("Syntax Error")
 	}
+	m := matches[0]
+	lhs, _ = strconv.Atoi(arg[m[2]:m[3]])
+	op = arg[m[4]:m[5]]
+	rhs, _ = strconv.Atoi(arg[m[6]:m[7]])
 	return
 }
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Println("“Syntax Error")
-		os.Exit(1)
+		fmt.Println("Syntax Error")
 	}
-	lhs, op, rhs := splitString(os.Args[1])
+	lhs, op, rhs, err := splitString(os.Args[1])
+	if err != nil {
+		fmt.Println("Syntax Error")
+	}
 	switch op {
 	case "+":
 		fmt.Println(lhs + rhs)

@@ -16,10 +16,14 @@ func main() {
 	if len(os.Args) == 1 {
 		return
 	}
-	lookup, arr, dict := os.Args[1], os.Args[2:], make(map[string]string)
+	lookup := os.Args[1]
+	arr := os.Args[2:]
+	dict := make(map[string]string)
 	for i := 0; i < len(arr); i++ {
 		str := strings.Split(arr[i], ":")
 		dict[str[0]] = str[1]
 	}
-	fmt.Println(dict[lookup])
+	if val, ok := dict[lookup]; ok {
+		fmt.Println(val)
+	}
 }

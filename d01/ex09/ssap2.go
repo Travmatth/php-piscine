@@ -3,61 +3,75 @@ package main
 import (
 	"os"
 	"unicode"
-	"strconv"
+	"sort"
+	"fmt"
+	"strings"
 )
 
-/*
-Take all params and sort them:
-	case insensitive alphabetical order
-	numbers
-	all other characters
-*/
-
-func sort_strings(arr []string) {
-	var f func(i, j int) bool {
-		n, m := len(arr[i]), len(arr[j])
-		max := min(len(arr[i]), len(arr[j]))
-		for i := 0; i < max; i++ {
-			firstIsLetter, firstIsNumber := unicode.IsLetter(arr[i]), unicode.IsNumber(arr[i])
-			secondIsLetter, secondIsNumber := unicode.IsLetter(arr[j]), unicode.IsNumber(arr[j])
+func determineOrder(runes [][]rune) func(i, j int) bool {
+	return  func(i, j int) bool {
+		min, n, m := 0, len(runes[i]), len(runes[j])
+		if n < m {
+			min = m
+		} else {
+			min = n
+		}
+		less := true
+		for k := 0; k < min; k++ {
+			first, second := runes[i], runes[j]
+			firstIsLetter := unicode.IsLetter(first[k])
+			firstIsNumber := unicode.IsNumber(first[k])
+			secondIsLetter := unicode.IsLetter(second[k])
+			secondIsNumber := unicode.IsNumber(second[k])
 			switch {
-			case i == n || j == m:
+			case k == n:
 				return true
+			case k == m:
+				return false
 			case firstIsLetter && secondIsLetter:
-				return unicode.ToLower(arr[i]) < unicode.ToLower(arr[j])
+				firstLower := unicode.ToLower(first[k])
+				secondLower := unicode.ToLower(rune(second[k]))
+				return firstLower < secondLower
 			case firstIsLetter:
 				return true
 			case secondIsLetter:
 				return false
 			case firstIsNumber && secondIsNumber:
-				first, _ := strconv.Atoi(arr[i])
-				second, _ := strconv.Atoi(arr[j])
-				return first < second
+				return int(first[k]) < int(second[k])
 			case firstIsNumber:
 				return true
 			case secondIsNumber:
 				return false
+			default:
+				return first[k] < second[k]
 			}
 		}
+		return less
 	}
 }
 
-// $> ./ssap2.php toto tutu 4234 "_hop A2l+ XXX" ## "1948372 AhAhAh"
-// AhAhAh
-// A2l+
-// toto
-// tutu
-// XXX
-// 1948372
-// 4234
-// ##
-// _hop
+func sort_strings(arr []string) (sorted []string) {
+	runes := [][]rune{}
+	for i := 0; i < len(arr); i++ {
+		items := strings.Fields(arr[i])
+		for _, item := range items {
+			runes = append(runes, []rune(item))
+		}
+	}
+	sort.SliceStable(runes, determineOrder(runes))
+	sorted = []string{}
+	for _, str := range runes {
+		sorted = append(sorted, string(str))
+	}
+	return sorted
+}
+
 func main() {
-	if len(os.Args) == 2 {
+	if len(os.Args) > 1 {
 		array := os.Args[1:]
-		sort_strings(array)
-		for i := 0; i < len(array); i++ {
-			fmt.Println(array[i])
+		runes := sort_strings(array)
+		for i := 0; i < len(runes); i++ {
+			fmt.Println(runes[i])
 		}
 	}
 }

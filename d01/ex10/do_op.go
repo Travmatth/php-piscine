@@ -28,7 +28,7 @@ func toOp(arg string) (op string) {
 func main() {
 	if len(os.Args) != 4 {
 		fmt.Println("Incorrect Parameters")
-		os.Exit(1)
+		return
 	}
 	lhs, op, rhs := toNum(os.Args[1]), toOp(os.Args[2]), toNum(os.Args[3])
 	switch op {

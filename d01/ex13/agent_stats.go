@@ -6,13 +6,14 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"sort"
 )
 
 type Note struct {
 	User     string `json:"user"`
-	Note     int    `json:"Note"`
+	Note     float64    `json:"Note"`
 	Grader   string `json:"Grader"`
-	Feedback int    `json:"Feedback"`
+	Feedback float64    `json:"Feedback"`
 }
 
 func main() {
@@ -21,6 +22,11 @@ func main() {
 		command = os.Args[1]
 	}
 	var notes []Note
+	totals := map[string]float64{
+		"users": 0.0,
+		"note": 0.0,
+		"feedback": 0.0,
+	}
 	reader := csv.NewReader(os.Stdin)
 	reader.Read()
 	for {
@@ -28,13 +34,16 @@ func main() {
 		if err == io.EOF || err != nil {
 			break
 		}
-		grade := 0
+		totals["users"] += 1
+		grade := 0.0
 		if line[1] != "" {
-			grade, _ = strconv.Atoi(line[1])
+			grade, _ = strconv.ParseFloat(line[1], 64)
+			totals["note"] += grade
 		}
-		feedback := 0
+		feedback := 0.0
 		if line[3] != "" {
-			feedback, _ = strconv.Atoi(line[3])
+			feedback, _ = strconv.ParseFloat(line[3], 64)
+			totals["feedback"] += feedback
 		}
 		notes = append(notes, Note{
 			User:     line[0],
@@ -45,12 +54,11 @@ func main() {
 	}
 	switch command {
 	case "average":
-		sum := 0
-		for _, note := range notes {
-			sum += note.Note
-		}
-		fmt.Println(sum / len(notes))
+		fmt.Println(totals["note"] / totals["users"])
 	case "average_user":
+		sort.SliceStable(notes, func(i, j int) bool {
+			return notes[i].User < notes[j].User
+		})
 	case "moulinette_variance":
 	}
 }

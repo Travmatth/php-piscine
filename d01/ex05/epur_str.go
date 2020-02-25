@@ -7,9 +7,9 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
-	if len(args) == 1 {
-		words := strings.Fields(args[0])
+	if len(os.Args) == 2 {
+		args := os.Args[1]
+		words := strings.Fields(args)
 		fmt.Println(strings.Join(words, " "))
 	}
 }
