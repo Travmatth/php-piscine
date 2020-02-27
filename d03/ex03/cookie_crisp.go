@@ -62,6 +62,6 @@ func cookieCrispHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/j03/ex03/cookie_crisp.php", cookieCrispHandler)
+	http.HandleFunc("/ex03/cookie_crisp.php", cookieCrispHandler)
 	http.ListenAndServe(":8080", nil)
 }

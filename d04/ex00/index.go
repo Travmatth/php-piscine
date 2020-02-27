@@ -1,4 +1,4 @@
-package main
+package Ex00
 
 import (
 	"fmt"
@@ -10,12 +10,13 @@ import (
 )
 
 var COOKIE_NAME = "SessionID"
-var store = make(map[string]*User, 0)
 
 type User struct {
 	Login    string
 	Password string
 }
+
+var Store = make(map[string]*User, 0)
 
 func makeCookie(r *http.Request) (cookie *http.Cookie) {
 	cookie = &http.Cookie{
@@ -46,16 +47,15 @@ func retrieveUser(domain string, r *http.Request) (user *User) {
 	r.ParseForm()
 	submit, isSubmit := r.Form["submit"]
 	submitted := isSubmit && submit[0] == "OK"
-	user, userExists := store[domain]
-
+	user, userExists := Store[domain]
 	switch {
 	case !userExists && !isSubmit:
 		user = &User{Login: "", Password: ""}
-		store[domain] = user
+		Store[domain] = user
 	case userExists && !isSubmit:
 	case !userExists && submitted:
 		user = &User{Login: "", Password: ""}
-		store[domain] = user
+		Store[domain] = user
 		fallthrough
 	case userExists && submitted:
 		checkLogin(r, user)
@@ -64,9 +64,11 @@ func retrieveUser(domain string, r *http.Request) (user *User) {
 	return
 }
 
-func handleAuthentication(w http.ResponseWriter, r *http.Request) {
+var HandleAuthenticationEndpoint string = "/j04/ex00/index.php"
+
+func HandleAuthentication(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Request from %s to %s\n", r.RemoteAddr, r.RequestURI)
-	tmpl := template.Must(template.ParseFiles("index.html"))
+	tmpl := template.Must(template.ParseFiles("ex00/index.html"))
 	cookie, err := r.Cookie(COOKIE_NAME)
 	user := &User{Login: "", Password: ""}
 	if err != nil {
@@ -78,10 +80,4 @@ func handleAuthentication(w http.ResponseWriter, r *http.Request) {
 		user = retrieveUser(r.URL.Hostname(), r)
 	}
 	tmpl.Execute(w, user)
-}
-
-func main() {
-	http.HandleFunc("/j04/ex00/index.php", handleAuthentication)
-	fmt.Println("Listening at 0.0.0.0:8080")
-	http.ListenAndServe(":8080", nil)
 }

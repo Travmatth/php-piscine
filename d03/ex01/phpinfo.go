@@ -29,6 +29,6 @@ func phpInfoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/j03/ex01/phpinfo.php", phpInfoHandler)
+	http.HandleFunc("/ex01/phpinfo.php", phpInfoHandler)
 	http.ListenAndServe(":8080", nil)
 }

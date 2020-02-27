@@ -84,15 +84,15 @@ func startLoop(entries []map[string]string) {
 }
 
 func main() {
-	if len(os.Args) != 2 {
+	if len(os.Args) != 3 {
+		return
+	}
+	entries, err := loadFile(os.Args[1])
+	if err != nil {
 		return
 	}
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	go registerSignals(sigs)
-	entries, err := loadFile(os.Args[1])
-	if err != nil {
-		return
-	}
 	startLoop(entries)
 }
