@@ -7,12 +7,18 @@ import (
 	"fmt"
 )
 
-func Auth(login, password, sessionUUID string) (valid bool) {
-	current := Ex00.Store[sessionUUID]
-	fmt.Println("comparing:", login, password, current)
-	if current == nil || subtle.ConstantTimeCompare([]byte(login), []byte(current.Login)) != 1 {
+func Auth(login, password string) (valid bool) {
+	var current *Ex00.User
+	for _, user := range Ex00.Store {
+		if subtle.ConstantTimeCompare([]byte(login), []byte(user.Login)) == 1 {
+			current = user
+			break
+		}
+	}
+	if current == nil {
 		return false
 	}
-	valid = Ex02.ComparePasswords(password, []byte(current.Password))
+	fmt.Println("Comparing passwords", password, current.Password)
+	valid = Ex02.ComparePasswords(current.Password, []byte(password))
 	return valid
 }

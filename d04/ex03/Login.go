@@ -26,7 +26,7 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 	sessionUUID := StartSession(w, r)
 	login, password := v.Get("login"), v.Get("passwd")
 	fmt.Println("Login reached", login, password, sessionUUID)
-	if login != "" && password != "" && Auth(login, password, sessionUUID) {
+	if login != "" && password != "" && Auth(login, password) {
 		fmt.Println("Login successful")
 		Session[sessionUUID] = login
 		w.Write([]byte("OK\n"))

@@ -11,6 +11,7 @@ import (
 
 func PreparePasswordFile() (err error) {
 	dir := fmt.Sprintf("%s/http/MyWebSite/j04/htdocs/private", os.Getenv("HOME"))
+	fmt.Println(dir)
 	PATH = dir
 	FILE = dir + "/passwd"
 	if _, err = os.Stat(PATH); os.IsNotExist(err) {
