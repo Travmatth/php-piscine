@@ -24,5 +24,4 @@ func main() {
 	http.HandleFunc(Ex03.HandleWhoAmIEndpoint, Ex03.HandleWhoAmI)
 	fmt.Println("Listening at 0.0.0.0:8080")
 	http.ListenAndServe(":8080", nil)
-	fmt.Println("foobar")
 }
