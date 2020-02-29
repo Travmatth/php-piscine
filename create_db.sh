@@ -6,3 +6,4 @@ docker-machine ssh php-piscine sudo mount -t vboxsf -o uid=999,gid=50 mysql_base
 eval $(docker-machine env php-piscine)
 docker run --detach --name=mysql-container --env="MYSQL_ROOT_PASSWORD=password" --publish 3306:3306 --volume=/var/lib/mysql:/var/lib/mysql --volume=/etc/mysql/conf.d:/etc/mysql/conf.d  mysql
 #mysql -uroot -ppassword -h $(docker-machine ip php-piscine)
+#mysql -uroot -ppassword -h $(docker-machine ip php-piscine) db_tmatthew < base_student.sql > output.log
