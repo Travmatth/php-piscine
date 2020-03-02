@@ -32,7 +32,7 @@ type Matrix struct {
 	matrix [16]float64
 }
 
-func NewMatrix(preset string, scale float64, angle float64, vtc *Vector.Vector, fov float64, ratio float64, near float64, far float64) (m *Matrix) {
+func NewMatrix(preset string, scale, angle float64, vtc *Vector.Vector, fov, ratio, near, far float64) (m *Matrix) {
 	var matrix [16]float64
 	for i := 0; i < 16; i++ {
 		matrix[i] = 0
@@ -60,6 +60,10 @@ func NewMatrix(preset string, scale float64, angle float64, vtc *Vector.Vector, 
 		fmt.Printf("Matrix %s preset instance constructed\n", m.preset)
 	}
 	return
+}
+
+func (m *Matrix) GetMatrix() [16]float64 {
+	return m.matrix
 }
 
 func (m *Matrix) copy() (c *Matrix) {
