@@ -91,7 +91,7 @@ func (m *Matrix) Mult(rhs *Matrix) (c *Matrix) {
 	return
 }
 
-func (m *Matrix) transform(v *Vertex.Vertex, x, y, z, w int) (t float64) {
+func (m *Matrix) Transform(v *Vertex.Vertex, x, y, z, w int) (t float64) {
 	xPos := v.GetX() * m.matrix[x]
 	yPos := v.GetY() * m.matrix[y]
 	zPos := v.GetZ() * m.matrix[z]
@@ -102,10 +102,10 @@ func (m *Matrix) transform(v *Vertex.Vertex, x, y, z, w int) (t float64) {
 
 func (m *Matrix) TransformVertex(v *Vertex.Vertex) (next *Vertex.Vertex) {
 	coords := make([]float64, 4)
-	coords[0] = m.transform(v, 0, 1, 2, 3)
-	coords[1] = m.transform(v, 4, 5, 6, 7)
-	coords[2] = m.transform(v, 8, 9, 10, 11)
-	coords[3] = m.transform(v, 12, 13, 14, 15)
+	coords[0] = m.Transform(v, 0, 1, 2, 3)
+	coords[1] = m.Transform(v, 4, 5, 6, 7)
+	coords[2] = m.Transform(v, 8, 9, 10, 11)
+	coords[3] = m.Transform(v, 12, 13, 14, 15)
 	next = Vertex.NewVertex(coords, v.GetColor())
 	return
 }
