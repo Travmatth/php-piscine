@@ -36,23 +36,64 @@
             }
         </style>
         <script>
+            calculate = (select, rhsElement, lhsElement) => () => {
+                op = select.options[select.selectedIndex]
+                message = ""
+                err = "It's over 9000!"
+                lhs = parseInt(lhsElement.value)
+                rhs = parseInt(rhsElement.value)
+                if (isNaN(lhs) || isNaN(rhs) || lhs < 0 || rhs < 0) {
+                    console.log("Error :(") //)
+                    alert("Error :(") //)
+                    return
+                }
+                switch (op.value) {
+                    case "+":
+                        message = (lhs + rhs).toString()
+                        break
+                    case "-":
+                        message = (lhs - rhs).toString()
+                        break
+                    case "*":
+                        message = (lhs * rhs).toString()
+                        break
+                    case "/":
+                        message = (rhs === 0) ? err : (lhs / rhs).toString()
+                        break
+                    case "%":
+                        message = (rhs === 0) ? err : (lhs % rhs).toString()
+                        break
+                }
+                console.log(message)
+                alert(message)
+            }
+            if (typeof document !== "undefined") {
+                document.addEventListener("DOMContentLoaded", () => {
+                    input = document.getElementById("button")
+                    select = document.getElementById("op")
+                    lhs = document.getElementById("lhs")
+                    rhs = document.getElementById("rhs")
+                    input.addEventListener("click", calculate(select, rhs, lhs))
+                })
+                setInterval(() => alert("Please, use me..."), 30 * 1000)
+            }
         </script>
     </head>
     <body>
         <main>
             <section>
-                <input type="text">
-                <select name="" id="">
+                <input type="text" id="lhs">
+                <select name="" id="op">
                     <option value="+">+</option>
                     <option value="-">-</option>
                     <option value="*">*</option>
                     <option value="/">/</option>
                     <option value="%">%</option>
                 </select>
-                <input type="text">
+                <input type="text" id="rhs">
             </section>
             <section>
-                <input type="submit" value="Try Me!"/>
+                <input type="submit" value="Try Me!" id="button"/>
             </section>
         </main>
     </body>
